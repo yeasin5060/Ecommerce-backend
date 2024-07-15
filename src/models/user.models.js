@@ -37,7 +37,7 @@ const userSchema =  new Schema(
             type : String,
         },
 
-    } , {timestamps : ture});
+    } , {timestamps : true});
 
                     //the plane passwors modifielsd hash password
     userSchema.pre("save" , async function(next){
