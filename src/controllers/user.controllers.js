@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { cloudinaryFileUpdate, cloudinaryFileUpload } from "../utils/cloudinary.js";
 import { publicidex } from "../utils/publicidex.js";
+import jwt from "jsonwebtoken";
 
 
 const generatorAccessAndRefreshtoken = async (user) => {
@@ -106,28 +107,69 @@ const logOut =  async(req , res) => {
         res.json(new ApiError(400 , "logout filed"));
     };
 };
-
+            //upload file in cloudinary
 const uploadFile = async (req , res) => {
     try {
         if(req.files){
             const {avatar , cover} = req.files;
+                //upload avatar photo
             if(avatar){
-                const {path} = avatar[0]
-                const {secure_url} = await cloudinaryFileUpload(path , "user")
+                const {path} = avatar[0];
+                const {secure_url} = await cloudinaryFileUpload(path , "user");
                 if(req.user.avatar){
-                    const publicId = publicidex(req.user.avatar)
-                    await cloudinaryFileUpdate(publicId)
-                }
-                req.user.avatar = secure_url
-                await req.user.save()
-                const user = await User.findById(req.user._id).select("-password")
-                res.json(new ApiResponse(200 , "avatar upload successfully" , user))
-            }
-        }
+                    const publicId = publicidex(req.user.avatar);
+                    await cloudinaryFileUpdate(publicId);
+                };
+                req.user.avatar = secure_url;
+                await req.user.save();
+                const user = await User.findById(req.user._id).select("-password");
+                res.json(new ApiResponse(200 , "avatar upload successfully" , user));
+            };
+                    //upload cover photo
+            if(cover){
+                const {path} = cover[0];
+                const {secure_url} = await cloudinaryFileUpload(path , "user");
+                if(req.user.cover){
+                    const publicId = publicidex(req.user.cover);
+                    await cloudinaryFileUpdate(publicId);
+                };
+                req.user.cover = secure_url;
+                await req.user.save();
+                const user = await User.findById(req.user._id).select("-password");
+                res.json(new ApiResponse(200 , "cover upload successfully" , user));
+            };
+        };
     } catch (error) {
         console.log("upload file error" , error.message);
-        res.json(new ApiError(400 , "upload file error"))
+        res.json(new ApiError(400 , "upload file error"));
+    };
+};
+            //generator new access and refresh token
+const generatorNewAccessToken = async (req ,res) => {
+    try {
+        const token = req.cookies?.refreshToken || req.body.refreshToken;
+        if(!token){
+            return res.json(new ApiError(400 , "refresh token not found"));
+        };
+        const decodeToken = jwt.verify(token , process.env.GENERATE_REFRESHTOKEN_SECRET);
+        if(!decodeToken){
+            return res.json(new ApiError(400 , "refresh token  not valied"));
+        };
+        const user = await User.findById(decodeToken._id);
+        if(!user){
+            return res.json(new ApiError(401 , "user don't match" ));
+        };
+        const {accessToken , refreshToken} = await generatorAccessAndRefreshtoken(user);
+        const newToken = await User.findById(user._id).select("-password");
+        
+        let options = {
+            secure : true,
+            httpOnly : true
+        };
+        res.cookie("accessToken" , accessToken , options).cookie("refreshToken" ,refreshToken , options).json(new ApiResponse(200 , "new refresh token create done" , {newToken , accessToken}));
+    } catch (error) {
+        return res.json(new ApiError(401 , "don't add new refresh token in database" , error.message ));
     }
 }
 
-export{ register , login , logOut , uploadFile};
+export{ register , login , logOut , uploadFile, generatorNewAccessToken};
