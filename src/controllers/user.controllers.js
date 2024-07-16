@@ -15,7 +15,7 @@ const generatorAccessAndRefreshtoken = async (user) => {
         throw new Error("Token generation failed");
     }
 }
-
+                    //user register
 const register = async (req ,res) => {
 
    try {
@@ -54,6 +54,7 @@ const register = async (req ,res) => {
     
 };
 
+                //user login
 const login = async (req , res) =>{
     try {
         const {email , password} = req.body;
@@ -82,4 +83,26 @@ const login = async (req , res) =>{
     };
 };
 
-export{ register , login};
+
+            //user logout
+const logOut =  async(req , res) => {
+    try {
+        await User.findByIdAndUpdate(req.user,{
+            $set: {
+                refreshToken : null
+            }
+        });
+        let options = {
+            secure : true,
+            httpOnly : true
+        };
+    
+        return res.clearCookie("accessToken" , options).clearCookie("refreshToken" , options).json(new ApiResponse (200 , "successfuly refreshtoken null"));
+    
+    } catch (error) {
+        console.log("logout error" , error.message);
+        res.json(new ApiError(400 , "logout filed"));
+    };
+};
+
+export{ register , login , logOut};
