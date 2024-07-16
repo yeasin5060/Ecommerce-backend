@@ -1,6 +1,8 @@
 import { User } from "../models/user.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { cloudinaryFileUpdate, cloudinaryFileUpload } from "../utils/cloudinary.js";
+import { publicidex } from "../utils/publicidex.js";
 
 
 const generatorAccessAndRefreshtoken = async (user) => {
@@ -105,4 +107,27 @@ const logOut =  async(req , res) => {
     };
 };
 
-export{ register , login , logOut};
+const uploadFile = async (req , res) => {
+    try {
+        if(req.files){
+            const {avatar , cover} = req.files;
+            if(avatar){
+                const {path} = avatar[0]
+                const {secure_url} = await cloudinaryFileUpload(path , "user")
+                if(req.user.avatar){
+                    const publicId = publicidex(req.user.avatar)
+                    await cloudinaryFileUpdate(publicId)
+                }
+                req.user.avatar = secure_url
+                await req.user.save()
+                const user = await User.findById(req.user._id).select("-password")
+                res.json(new ApiResponse(200 , "avatar upload successfully" , user))
+            }
+        }
+    } catch (error) {
+        console.log("upload file error" , error.message);
+        res.json(new ApiError(400 , "upload file error"))
+    }
+}
+
+export{ register , login , logOut , uploadFile};
