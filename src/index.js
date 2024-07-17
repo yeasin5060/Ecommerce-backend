@@ -5,7 +5,7 @@ import { dbConnection } from "./db/index.js";
 
 
 dotenv.config({
-    path : "./env"
+    path : "./.env"
 })
 dbConnection()
 app.listen(PORT , () => {
