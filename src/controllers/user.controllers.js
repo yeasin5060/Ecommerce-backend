@@ -71,7 +71,7 @@ const login = async (req , res) =>{
         };
 
         const {accessToken , refreshToken} = await generatorAccessAndRefreshtoken(userFound);
-        const loginUser = await User.findById(userFound._id).select("-password");
+        const loginUser = await User.findById(userFound._id).select("-password -refreshToken");
 
         let options = {
             secure : true,
@@ -95,12 +95,12 @@ const logOut =  async(req , res) => {
                 refreshToken : null
             }
         });
+        const logOutUser = await User.findById(req.user._id).select("-password -refreshToken")
         let options = {
             secure : true,
             httpOnly : true
         };
-    
-        return res.clearCookie("accessToken" , options).clearCookie("refreshToken" , options).json(new ApiResponse (200 , "successfuly refreshtoken null"));
+        return res.clearCookie("accessToken" , options).clearCookie("refreshToken" , options).json(new ApiResponse (200 , "successfuly refreshtoken null" , logOutUser));
     
     } catch (error) {
         console.log("logout error" , error.message);
@@ -160,7 +160,7 @@ const generatorNewAccessToken = async (req ,res) => {
             return res.json(new ApiError(401 , "user don't match" ));
         };
         const {accessToken , refreshToken} = await generatorAccessAndRefreshtoken(user);
-        const newToken = await User.findById(user._id).select("-password");
+        const newToken = await User.findById(user._id).select("-password -refreshtoken");
         
         let options = {
             secure : true,
