@@ -21,10 +21,9 @@ const orderSchema = new Schema({
         enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
         default: 'Pending'
     },
-    paymentMethod: {
-        type: String,
-        enum: ['Credit Card', 'PayPal', 'Bank Transfer', 'Cash on Delivery'],
-        required: true
+    payment: {
+       type : Schema.Types.ObjectId,
+       ref : "Payment"
     },
 }, {timestamps : true})
 
