@@ -23,7 +23,7 @@ const paymentSchema = new Schema({
         min : 0
     }
 
-},{timestamps :true})
+},{timestamps :true});
 
 
-export const Payment = mongoose.model.Payment ?? mongoose.model("Payment" , paymentSchema)
+export const Payment = mongoose.model.Payment ?? mongoose.model("Payment" , paymentSchema);

@@ -1,6 +1,16 @@
 import mongoose,{Schema} from "mongoose";
 
 const productSchema = new  Schema({
+    name : {
+        type : String,
+        required : true,
+        trim : true
+    },
+    description : {
+        type : String,
+        required : true,
+        trim : true
+    },
     price : {
         type : Number,
         required : true,
@@ -18,15 +28,19 @@ const productSchema = new  Schema({
         type: Boolean,
         default: true
     },
-    images : {
+    image : {
+        type : String,
+        required : true
+    },
+    smallimage : {
         type : String,
         required : true
     },
     categories : {
-        type : Schema.Types.ObjectId,
-        ref : "Categories"
+        type : String,
+        required : true
     }
-} , {timestamps : true})
+} , {timestamps : true});
 
 
-export const Product = mongoose.model.Product?? mongoose.model("Product" , productSchema)
+export const Product = mongoose.model.Product?? mongoose.model("Product" , productSchema);

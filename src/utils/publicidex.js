@@ -4,7 +4,7 @@ export const publicidex = (publicid) => {
     const lastValue = urlArr[urlArr.length -1].split(".")[0];
     const finalValue = `${fristValue}/${lastValue}`;
     console.log(finalValue);
-    return finalValue
+    return finalValue;
 }
 
-publicidex('https://res.cloudinary.com/dwhecnggl/image/upload/v1720958641/user/github-logo_gyarre.jpg')
+publicidex('https://res.cloudinary.com/dwhecnggl/image/upload/v1720958641/user/github-logo_gyarre.jpg');

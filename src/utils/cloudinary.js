@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary';
-import fs from "fs"
+import fs from "fs";
 
     //cloudinary secret key
 cloudinary.config({ 
@@ -22,8 +22,8 @@ export const cloudinaryFileUpload = async (localpath , folder) => {
             return uploadResult;
         } catch (error) {
             console.log("multer error" , error.message);
-        }
-}
+        };
+};
 
 export const cloudinaryFileUpdate = async (publicId) => {
     try {
@@ -36,8 +36,8 @@ export const cloudinaryFileUpdate = async (publicId) => {
         return updateResult
     } catch (error) {
         console.log("cloudinary file update error" , error.mssage);
-    }
-}
+    };
+};
 /*(async function() {
 
     // Configuration

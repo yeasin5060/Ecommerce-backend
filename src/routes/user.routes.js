@@ -23,4 +23,4 @@ router.route("/uploadfile").post(auth , upload.fields([
 ]) , uploadFile);
 
 
-export default router
+export default router;

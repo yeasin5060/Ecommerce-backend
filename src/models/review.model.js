@@ -18,6 +18,6 @@ const reviewSchema = new Schema({
             ref : "Product"
         }
     ]
-} , {timestamps : true})
+} , {timestamps : true});
 
-export const Review = mongoose.model.Review?? mongoose.model("Review" , reviewSchema)
+export const Review = mongoose.model.Review?? mongoose.model("Review" , reviewSchema);

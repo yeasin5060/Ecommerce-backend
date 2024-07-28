@@ -25,6 +25,6 @@ const orderSchema = new Schema({
        type : Schema.Types.ObjectId,
        ref : "Payment"
     },
-}, {timestamps : true})
+}, {timestamps : true});
 
-export const Order = mongoose.model.Order?? mongoose.model("Order" , orderSchema)
+export const Order = mongoose.model.Order?? mongoose.model("Order" , orderSchema);

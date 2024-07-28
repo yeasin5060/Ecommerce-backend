@@ -16,7 +16,7 @@ const cartItemSchema = new Schema({
         }
     ]
 
-},{timestamps : true})
+},{timestamps : true});
 
 
-export const Cartitem = mongoose.model.Cartitem ?? mongoose.model("Cartitem" , cartItemSchema)
+export const Cartitem = mongoose.model.Cartitem ?? mongoose.model("Cartitem" , cartItemSchema);

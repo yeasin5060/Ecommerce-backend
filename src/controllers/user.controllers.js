@@ -65,13 +65,19 @@ const login = async (req , res) =>{
            return res.status(400).json(new ApiError(400 , "all field is require"));
         };
 
-        const userFound = await User.findOne({email})
+        const userFound = await User.findOne({
+            $or : [{email}]
+        })
         if(!userFound){
            return res.status(400).json(new ApiError(400 , "invalied user"));
         };
 
+        const isPasswordCorrect = await userFound.isPasswordCorrect(password);
+        if(!isPasswordCorrect){
+            res.json(new ApiError(400 , "invalid password or email"))
+        }
         const {accessToken , refreshToken} = await generatorAccessAndRefreshtoken(userFound);
-        const loginUser = await User.findById(userFound._id).select("-password -refreshToken");
+        const loginUser = await User.findById(userFound._id).select("-password");
 
         let options = {
             secure : true,
@@ -95,7 +101,7 @@ const logOut =  async(req , res) => {
                 refreshToken : null
             }
         });
-        const logOutUser = await User.findById(req.user._id).select("-password -refreshToken")
+        const logOutUser = await User.findById(req.user._id).select("-password -refreshToken");
         let options = {
             secure : true,
             httpOnly : true

@@ -5,6 +5,6 @@ const cartSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : "User"
     }
-}, {timestamps : true})
+}, {timestamps : true});
 
-export const Cart = mongoose.model.Cart?? mongoose.model("Cart" , cartSchema)
+export const Cart = mongoose.model.Cart?? mongoose.model("Cart" , cartSchema);
