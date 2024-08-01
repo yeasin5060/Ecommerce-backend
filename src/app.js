@@ -20,6 +20,6 @@ import userRouter from "./routes/user.routes.js";
 import product from './routes/product.routes.js';
 
 app.use("/api/v1/user",userRouter);
-app.use("/api/v1/",product);
+app.use("/api/v1",product);
 
 export { app };

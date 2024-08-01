@@ -178,4 +178,19 @@ const generatorNewAccessToken = async (req ,res) => {
     }
 }
 
-export{ register , login , logOut , uploadFile, generatorNewAccessToken};
+                //get user
+const getUser = async (req , res) => {
+    try {
+        return res.status(200).json(new ApiResponse (200 , req.user , "get user sucessfully"))
+    } catch (error) {
+        res.json(new ApiError(400 , "invalid user" , error.message))
+    }
+}
+
+export{ register , 
+    login , 
+    logOut , 
+    uploadFile, 
+    generatorNewAccessToken,
+    getUser
+};
