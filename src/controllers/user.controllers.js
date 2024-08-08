@@ -101,7 +101,7 @@ const logOut =  async(req , res) => {
                 refreshToken : null
             }
         });
-        const logOutUser = await User.findById(req.user._id).select("-password -refreshToken");
+        const logOutUser = await User.findById(req.user._id).select("-password");
         let options = {
             secure : true,
             httpOnly : true
@@ -181,7 +181,9 @@ const generatorNewAccessToken = async (req ,res) => {
                 //get user
 const getUser = async (req , res) => {
     try {
-        return res.status(200).json(new ApiResponse (200 , req.user , "get user sucessfully"))
+        const user = await req.user;
+        const getUser = await User.findById(user._id).select("-password");
+        return res.status(200).json(new ApiResponse (200 ,getUser , "get user sucessfully"));
     } catch (error) {
         res.json(new ApiError(400 , "invalid user" , error.message))
     }

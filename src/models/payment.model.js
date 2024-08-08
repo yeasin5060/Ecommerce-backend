@@ -6,10 +6,10 @@ const paymentSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : "User"
     },
-    poroduct : [
+    order : [
         {
             type : Schema.Types.ObjectId,
-            ref : "Product"
+            ref : "Order"
         }
     ],
     paymentmethod : {

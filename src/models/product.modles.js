@@ -19,11 +19,6 @@ const productSchema = new  Schema({
     descound : {
         type : Number,
     },
-    quantity : {
-        type : Number,
-        required : true,
-        default : 0
-    },
     inStock: {
         type: Boolean,
         default: true

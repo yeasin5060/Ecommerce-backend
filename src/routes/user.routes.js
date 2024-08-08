@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { generatorNewAccessToken, login, logOut, register, uploadFile } from "../controllers/user.controllers.js";
+import { generatorNewAccessToken, getUser, login, logOut, register, uploadFile } from "../controllers/user.controllers.js";
 import { auth } from "../middlewares/auth.middlewares.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 
@@ -21,6 +21,6 @@ router.route("/uploadfile").post(auth , upload.fields([
         
     }
 ]) , uploadFile);
-
+router.route("/getuser").get(auth ,getUser);
 
 export default router;
