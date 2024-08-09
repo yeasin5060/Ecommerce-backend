@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { auth } from "../middlewares/auth.middlewares.js";
 import { upload } from "../middlewares/multer.middlewares.js";
-import { product } from "../controllers/product.controllers.js";
+import { deleteProduct, getProduct, product } from "../controllers/product.controllers.js";
 
 const router = Router();
 router.route("/product").post(auth,upload.fields([
@@ -14,5 +14,8 @@ router.route("/product").post(auth,upload.fields([
         maxCount : 4
     }
 ]),product);
+
+router.route("/allproduct").get(getProduct);
+router.route("/deleteproduct").delete(deleteProduct);
 
 export default router;
