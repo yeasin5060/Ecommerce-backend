@@ -1,0 +1,37 @@
+#sidebars{
+   width: 300px;
+   height: 87vh;
+   background: #ebe6e6;
+   padding: 20px 30px; 
+}
+.sidebar-link-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 30px;
+}
+.addproduct{
+    padding: 15px 30px;
+    background: #d8d3d3;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.addproduct{
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+    cursor: pointer;
+}
+.product-list{
+    padding: 15px 30px;
+    background: #d8d3d3;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.product-list{
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+    cursor: pointer;
+}
