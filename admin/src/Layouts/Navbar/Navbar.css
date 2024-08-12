@@ -1,0 +1,38 @@
+#navbar{
+    padding: 20px 70px;
+    background: whitesmoke;
+    width: 100%;
+}
+.navbar-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav-logo-box{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.nav-logo{
+    font-size: 32px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    
+}
+.nav-profile-box{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgb(53, 52, 51);
+    overflow: hidden;
+    cursor: pointer;
+}
+.nav-profile-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -5,13 +5,13 @@ import {
   Route,
 } from "react-router-dom";
 import Main from "./Layouts/Main/Main";
-import Product from "./Pages/Product/Product";
+import Admin from "./Pages/Admin/Admin";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element = {<Main/>}>
-       <Route path="/" element ={<Product/>}/>
+        <Route path="/" element = {<Admin/>}/>
       </Route>
     )
   );
