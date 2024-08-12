@@ -1,0 +1,21 @@
+#footer{
+    padding: 30px 0;
+    background: #f0eaeade;
+}
+.footer_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 100px;
+}
+.footer_wrapper_copyright_box{
+    text-align: center;
+}
+.footer_wrapper_copyright_contant{
+    font-size: 28px;
+    font-weight: 600;
+    color: #0f0f0f;
+    text-transform: capitalize;
+    line-height: 150%;
+}
