@@ -16,6 +16,11 @@ const productSchema = new  Schema({
         required : true,
         trim : true
     },
+    oldprice :{
+        type : Number,
+        required : true,
+        trim : true
+    },
     descound : {
         type : Number,
     },
