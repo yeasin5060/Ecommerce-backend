@@ -5,11 +5,11 @@ import { cloudinaryFileUpdate, cloudinaryFileUpload } from "../utils/cloudinary.
 
 const product = async (req , res) => {
     try {
-        const { name , description , categories ,price ,oldprice, image , smallimage} = req.body;
-        if([price , image , smallimage , name , description , categories].some((field) => field ?.trim() == "")){
+        const { name , description , categories ,price ,oldprice,descount, image , smallimage} = req.body;
+        if([name , description , categories ,price ,oldprice,descount, image , smallimage].some((field) => field ?.trim() == "")){
             return res.json(new ApiError(400 , "all filed is require"));
         }; 
-        const products = await Product.create({name : name , description : description, categories : categories, price : price, oldprice: oldprice});
+        const products = await Product.create({name : name , description : description, categories : categories, price : price, oldprice: oldprice,descount : descount});
         if(req.files){
             const {image , smallimage} = req.files;
             if(image){

@@ -21,8 +21,8 @@ const productSchema = new  Schema({
         required : true,
         trim : true
     },
-    descound : {
-        type : Number,
+    descount : {
+        type : String,
     },
     inStock: {
         type: Boolean,

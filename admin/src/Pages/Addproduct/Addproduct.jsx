@@ -5,61 +5,100 @@ import './Addproduct.css'
 const Addproduct = () => {
 
   const [productData , setProductData] = useState({
-    productname : "",
-    productdes : "",
-    productprice : "",
-    productoldprice : "",
+    name : "",
+    description : "",
+    price : "",
+    oldprice : "",
+    descount : "",
     category : "",
-    productbigimg : "",
-    productsmaillimg : ""
+    //user : "66a76c9de8b2489b585fb8af"
   });
+
+  /*const [image , setImage] = useState({
+      productbigimg : "",
+      productsmaillimg : ""
+  })*/
+
+  const [image , setImage] = useState(null);
+  const [smallimage , setSmallImage] = useState(null)
 
   const handleProduct = (e)=>{
-    let {name ,value} = e.target
-    setProductData({...productData,[name]:value})
+    let {name ,value} = e.target;
+    setProductData({...productData,[name]:value});
   }
 
+
   let [error , setError] = useState({
-    productname : "",
-    productdes : "",
-    productprice : "",
-    productoldprice : "",
+    name : "",
+    description : "",
+    price : "",
+    oldprice : "",
+    descount : "",
     category : "",
-    productbigimg : "",
-    productsmaillimg : ""
+    image : "",
+    smallimage : ""
   });
-  const productAdd = (e)=>{
+  const productAdd = async (e)=>{
     e.preventDefault();
-    if(!productData.productname){
-      setError({productname : "Product Name Is Require"});
+    if(!productData.name){
+      setError({name : "Product Name Is Require"});
     }
-    else if(!productData.productdes){
-      setError({productname : ""});
-      setError({productdes : "Product Description Is Require"});
+    else if(!productData.description){
+      setError({name : ""});
+      setError({description : "Product Description Is Require"});
     }
-    else if(!productData.productprice){
-      setError({productdes : ""});
-      setError({productprice : "Product Price Is Require"});
+    else if(!productData.price){
+      setError({description : ""});
+      setError({price : "Product Price Is Require"});
     }
-    else if(!productData.productoldprice){
-      setError({productprice : ""});
-      setError({category : "Product Old Price Is require"});
+    else if(!productData.oldprice){
+      setError({price : ""});
+      setError({oldprice : "Product Offer Price Is require"});
+    }
+    else if(!productData.descount){
+      setError({oldprice : ""});
+      setError({descount : "Product Descount Is Require"});
     }
     else if(!productData.category){
-      setError({productproldice : ""});
+      setError({descount : ""});
       setError({category : "Category Is Require"});
     }
-    else if(!productData.productbigimg){
+    else if(!image){
       setError({category : ""});
-      setError({productbigimg : "Big Image Is Require"});
+      setError({image : "Big Image Is Require"});
     }
-    else if(!productData.productsmaillimg){
-      setError({productbigimg : ""});
-      setError({productsmaillimg : "Small Image Is Require"});
+    else if(!smallimage){
+      setError({image : ""});
+      setError({smallimage : "Small Image Is Require"});
     }
     else{
-      setError({productsmaillimg : ""})
+      setError({smalliamge : ""})
       console.log(productData);
+      console.log(image);
+      console.log(smallimage);
+      
+      //let responseData ;
+      //let product = productData;
+      
+      /*let fromData = new FormData();
+      fromData.append("product ",productData);
+
+      let res = await fetch("http://localhost:7000/api/v1/product",{
+        method : "POST",
+        headers : {
+          Accept : "application/json",
+          "Contant-Type" : "application/json"
+        },
+        body : fromData
+      })
+      if(res.ok){
+        alert("Product Added")
+      }else{
+        alert("Field")
+      }*/
+      //console.log(res);
+      //console.log(fromData);
+      
     }
   }
   return (
@@ -67,45 +106,52 @@ const Addproduct = () => {
       <from className="addproduct-from">
         <div className="addproduct-field">
           <Heading level="p" text="Product Title" className="product-details"/>
-          <input type="text" name ="productname" placeholder='Type Filed' onChange={handleProduct}/>
-          {error.productname && <p className='sign_error'>{error.productname}</p>}
+          <input type="text" name ="name" placeholder='Type Filed' onChange={handleProduct}/>
+          {error.name && <p className='sign_error'>{error.name}</p>}
         </div>
         <div className="addproduct-field">
           <Heading level="p" text="Product Description" className="product-details"/>
-          <input type="text" name ="productdes" placeholder='Type Filed ' onChange={handleProduct}/>
-          {error.productdes && <p className='sign_error'>{error.productdes}</p>}
+          <input type="text" name ="description" placeholder='Type Filed ' onChange={handleProduct}/>
+          {error.description && <p className='sign_error'>{error.description}</p>}
         </div>
         <div className='addproduct-price-box'>
           <div className="addproduct-price">
             <Heading level="p" text="Price" className="product-details"/>
-            <input type="text" name ="productprice" placeholder='Type Filed' onChange={handleProduct}/>
-            {error.productprice && <p className='sign_error'>{error.productprice}</p>}
+            <input type="number" name ="price" placeholder='Type Filed' onChange={handleProduct}/>
+            {error.price && <p className='sign_error'>{error.price}</p>}
           </div>
           <div className="addproduct-price">
             <Heading level="p" text="Offer Price" className="product-details"/>
-            <input type="text" name ="productprice" placeholder='Type Filed' onChange={handleProduct}/>
-            {error.productoldprice && <p className='sign_error'>{error.productoldprice}</p>}
+            <input type="number" name ="oldprice" placeholder='Type Filed' onChange={handleProduct}/>
+            {error.oldprice && <p className='sign_error'>{error.oldprice}</p>}
           </div>
         </div>
-        <div className="addproduct-field-category">
-        <Heading level="p" text="Select Category" className="product-details"/>
-         <select className='category-select' name='category' onChange={handleProduct}>
-          <option value="man">Man</option>
-          <option value="woman">Woman</option>
-          <option value= "kid">Kid</option>
-         </select>
-         {error.category && <p className='sign_error'>{error.category}</p>}
+        <div className="addproduct-categroy-descount-box">
+          <div className="addproduct-field-category">
+            <Heading level="p" text="Select Category" className="product-details"/>
+            <select className='category-select' name='category' onChange={handleProduct}>
+              <option value="man">Man</option>
+              <option value="woman">Woman</option>
+              <option value= "kid">Kid</option>
+            </select>
+            {error.category && <p className='sign_error'>{error.category}</p>}
+          </div>
+          <div className="addproduct-price">
+            <Heading level="p" text="Descount" className="product-details"/>
+            <input type="text" name ="descount" placeholder='Type Filed' onChange={handleProduct}/>
+            {error.descount && <p className='sign_error'>{error.descount}</p>}
+          </div>
         </div>
         <div className="addproduct-images-box">
           <div className="addproduct-field">
             <Heading level="p" text="Select Big Image" className="product-details"/>
-            <input type="file" name ="productbigimg"  onChange={handleProduct} />
-            {error.productbigimg && <p className='sign_error'>{error.productbigimg}</p>}
+            <input type="file"   onChange={(e) => setImage(e.target.files[0])}  />
+            {error.image && <p className='sign_error'>{error.image}</p>}
           </div>
           <div className="addproduct-field">
             <Heading level="p" text="Select Small Image" className="product-details"/>
-            <input type="file" name ="productsmaillimg" onChange={handleProduct}/>
-            {error.productsmaillimg && <p className='sign_error'>{error.productsmaillimg}</p>}
+            <input type="file"  onChange={(e) => setSmallImage(e.target.files[0])} />
+            {error.smallimage && <p className='sign_error'>{error.smallimage}</p>}
           </div>
         </div>
         <div className="addproduct-btn">
