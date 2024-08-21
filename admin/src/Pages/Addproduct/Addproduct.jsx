@@ -80,25 +80,30 @@ const Addproduct = () => {
       //let responseData ;
       //let product = productData;
       
-      /*let fromData = new FormData();
-      fromData.append("product ",productData);
+      let formData = new FormData();
+      formData.append("product ",productData);
+      formData.append("image", image);
+      formData.append("smallimage" , smallimage);
 
-      let res = await fetch("http://localhost:7000/api/v1/product",{
-        method : "POST",
-        headers : {
-          Accept : "application/json",
-          "Contant-Type" : "application/json"
-        },
-        body : fromData
-      })
-      if(res.ok){
-        alert("Product Added")
-      }else{
-        alert("Field")
-      }*/
+      try {
+        let res = await fetch("http://localhost:7000/api/v1/product",{
+          method : "POST",
+          headers : {
+            Accept : "application/json",
+            "Contant-Type" : "application/json"
+          },
+          body : formData,
+        })
+        if(res.ok){
+          alert("Product Added")
+        }else{
+          alert("Field")
+        }
+      } catch (error) {
+        console.log("product added error");
+      }
       //console.log(res);
       //console.log(fromData);
-      
     }
   }
   return (
