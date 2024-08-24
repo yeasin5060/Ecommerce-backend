@@ -15,7 +15,21 @@ const Productlist = () => {
   useEffect(()=>{
     fetchProduct()
   },[])
-  console.log(allProduct);
+
+      //remove product in mongodb database
+    
+    const removeProduct = async (id) => {
+      await fetch("http://localhost:7000/api/v1/deleteproduct" , {
+        method : "DELETE",
+          headers : {
+            Accept : "application/json",
+            "Contant-Type" : "application/json"
+          },
+          body : JSON.stringify({id : id})
+      })
+      fetchProduct()
+    }
+  console.log(allProduct[0]._id);
   
   return (
     <div id = "productlist">
@@ -52,7 +66,7 @@ const Productlist = () => {
                     <img src={item.smallimage} alt="not found" />
                   </div>
                   <div className='remove-product'>
-                    <button className='remove-product-btn'><RiChatDeleteLine /></button>
+                    <button className='remove-product-btn' onClick={()=> {removeProduct(item._id)}}><RiChatDeleteLine /></button>
                   </div>
                 </div> 
                 <hr/>
